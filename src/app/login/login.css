@@ -1,0 +1,229 @@
+html, body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* Permitir scroll en la página de login */
+.login-page html,
+.login-page body {
+  overflow-y: auto; /* permite scroll cuando sea necesario */
+}
+
+/* altura segura para móvil */
+.h-dvh {
+  height: 100dvh;
+}
+
+.login-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.login-left {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  background: url("/opncion2.png") center/cover no-repeat;
+  overflow: hidden;
+}
+
+.overlay-dark {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  animation: zoomSlow 20s ease-in-out infinite alternate;
+}
+
+.overlay-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom right,
+    rgba(120, 53, 15, 0.4),
+    rgba(30, 58, 138, 0.35),
+    rgba(6, 95, 70, 0.4)
+  );
+  animation: pulseSlow 6s ease-in-out infinite;
+}
+
+.form-wrapper {
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-box {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 1s ease forwards;
+}
+
+.form-title {
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #111;
+}
+
+.union-gradient {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 5%;
+  background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.4));
+}
+
+.login-right {
+  position: relative;
+  overflow: hidden; /* evita scroll por zoom */
+}
+
+.background-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay-contrast {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.781),
+    rgba(0, 0, 0, 0.637),
+    transparent
+  );
+}
+
+.right-content {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 600px;
+  text-align: center;
+  z-index: 2;
+  color: white;
+}
+
+.right-title {
+  font-size: 2rem;
+  font-weight: 800;
+  animation: fadeInUp 1s ease forwards;
+}
+
+.right-sub {
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+  animation: fadeInUp 1.2s ease forwards;
+}
+
+/* frases rotativas */
+.rotating-container {
+  position: relative;
+  height: 3rem;
+  overflow: hidden;
+}
+
+.phrase-in {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+  font-weight: 600;
+  animation: fadeInUp 0.8s forwards;
+}
+
+/* chips */
+.chips {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.chip {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 9999px;
+  backdrop-filter: blur(4px);
+  animation: floatSlow 6s infinite;
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulseSlow {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 1; }
+}
+@keyframes zoomSlow {
+  from { transform: scale(1); }
+  to { transform: scale(1.05); }
+}
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* Estilos para scroll mejorado */
+.scroll-container {
+  scrollbar-width: thin;
+  scrollbar-color: #f59e0b #f3f4f6;
+}
+
+.scroll-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 3px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background: #f59e0b;
+  border-radius: 3px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #d97706;
+}
+/* El emoji no debe heredar sombras/gradientes del título */
+.login-page .emoji{
+  text-shadow: none !important;
+  -webkit-text-stroke: 0 !important;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  color: currentColor; /* usa el color del texto: ahora slate-900 */
+  font-family: "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",
+               "Segoe UI Symbol",system-ui,sans-serif;
+  font-size: 1em;
+  line-height: 1;
+  vertical-align: -0.1em;
+}
