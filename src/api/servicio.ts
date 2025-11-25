@@ -47,3 +47,51 @@ export const listarServicios = async (params?: Record<string, any>) => {
     throw err;
   }
 };
+
+// Listar servicios filtrando por proveedor y estado
+// En tu archivo servicio.ts - CORREGIR
+export const listarServiciosPorId = async (params: { id?: number; proveedor?: number; estado?: string }) => {
+  const searchParams = new URLSearchParams();
+  if (params.id) searchParams.append('id', String(params.id));
+  if (params.proveedor) searchParams.append('proveedor', String(params.proveedor));
+  if (params.estado) searchParams.append('estado', params.estado);
+  const url = buildUrl(`api/servicios/?${searchParams.toString()}`);
+  
+  const response = await fetchWithAuth(url, { method: 'GET' });
+  console.log('Respuesta de listarServiciosPorId:', response);
+  
+  // Asegúrate de que devuelva un objeto con propiedad data
+  return { data: response };
+};
+
+export const crearServicio = async (servicio: Record<string, any>) => {
+  const url = buildUrl('api/servicios/');
+  return fetchWithAuth(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(servicio),
+  });
+};
+
+export const actualizarServicio = async (id: number, servicio: Record<string, any>) => {
+  const url = buildUrl(`api/servicios/${id}/`);
+  return fetchWithAuth(url, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(servicio),
+  });
+};
+
+
+export const cambiarEstadoServicio = async (id: number, nuevoEstado: string) => {
+  const url = buildUrl(`api/servicios/${id}/`);
+  return fetchWithAuth(url, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      estado: nuevoEstado
+    })
+  });
+};
