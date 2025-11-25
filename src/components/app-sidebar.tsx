@@ -31,6 +31,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import useAuth from "@/hooks/useAuth"
+import { PlaneIcon } from "lucide-react"
 
 const data = {
   user: {
@@ -48,6 +49,7 @@ const data = {
     { title: "Notificaciones Push", url: "/panel/notificaciones", icon: IconBell },
     { title: "Reportes y Analíticas", url: "/panel/reportes", icon: IconChartBar },
     { title: "Gestión de informes", url: "#", icon: IconChartBar },
+    { title: "Planes", url: "/panel/planes", icon: PlaneIcon },
   ],
   navClouds: [
     {
