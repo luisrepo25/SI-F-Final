@@ -106,14 +106,68 @@ export default function PaginaDestinos() {
         Number(s.precio_usd) <= filtros.rangoPrecios[1]
     );
 
-    // FILTRO: CATEGORÍAS
-    if (filtros.categorias.length > 0) {
-      resultados = resultados.filter((s) =>
-        filtros.categorias.includes(
-          s.categoria?.nombre?.toLowerCase() ?? ""
-        )
-      );
-    }
+    // FILTRO: CATEGORÍAS (MEJORADO)
+if (filtros.categorias.length > 0) {
+  resultados = resultados.filter((s) => {
+    const nombreCat = s.categoria?.nombre?.toLowerCase() ?? "";
+
+    return filtros.categorias.some((cat) => {
+      const c = cat.toLowerCase();
+
+      // Ecológica
+      if (c === "ecologica") {
+        return (
+          nombreCat.includes("eco") ||
+          nombreCat.includes("ecolog") ||
+          nombreCat.includes("ambient") ||
+          nombreCat.includes("sosten")
+        );
+      }
+
+      // Naturaleza
+      if (c === "naturaleza") {
+        return (
+          nombreCat.includes("natur") ||
+          nombreCat.includes("fauna") ||
+          nombreCat.includes("flora") ||
+          nombreCat.includes("paisaje")
+        );
+      }
+
+      // Cultural
+      if (c === "cultural") {
+        return nombreCat.includes("cultur");
+      }
+
+      // Aventura
+      if (c === "aventura") {
+        return nombreCat.includes("avent");
+      }
+
+      // Gastronomía
+      if (c === "gastronomia") {
+        return (
+          nombreCat.includes("gastro") ||
+          nombreCat.includes("comida") ||
+          nombreCat.includes("culin")
+        );
+      }
+
+      // Historia
+      if (c === "historia") {
+        return nombreCat.includes("hist");
+      }
+
+      // Religioso
+      if (c === "religioso") {
+        return nombreCat.includes("reli");
+      }
+
+      // Comparación estándar
+      return nombreCat.includes(c);
+    });
+  });
+}
 
     return resultados;
   }, [serviciosOriginales, filtros]);

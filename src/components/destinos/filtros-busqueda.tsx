@@ -29,13 +29,16 @@ export function FiltrosBusqueda({
   alCerrar,
 }: PropsFiltrosBusqueda) {
   const categorias = [
-    { id: "cultural", etiqueta: "Cultural", cantidad: 24 },
-    { id: "naturaleza", etiqueta: "Naturaleza", cantidad: 18 },
-    { id: "aventura", etiqueta: "Aventura", cantidad: 15 },
-    { id: "gastronomia", etiqueta: "Gastronomía", cantidad: 12 },
-    { id: "historia", etiqueta: "Historia", cantidad: 20 },
-    { id: "religioso", etiqueta: "Religioso", cantidad: 8 },
-  ]
+  { id: "cultural", etiqueta: "Cultural", cantidad: 24 },
+  { id: "naturaleza", etiqueta: "Naturaleza", cantidad: 18 },
+  { id: "aventura", etiqueta: "Aventura", cantidad: 15 },
+  { id: "gastronomia", etiqueta: "Gastronomía", cantidad: 12 },
+  { id: "historia", etiqueta: "Historia", cantidad: 20 },
+  { id: "religioso", etiqueta: "Religioso", cantidad: 8 },
+
+  // ✅ NUEVA CATEGORÍA
+  { id: "ecologica", etiqueta: "Ecológica", cantidad: 10 },
+]
 
   const duraciones = [
     { id: "medio-dia", etiqueta: "Medio día" },
