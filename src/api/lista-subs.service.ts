@@ -1,6 +1,7 @@
+import { Plan } from './plan';
 export interface Suscripcion {
   id: number;
-  precio: number;
+  plan: Plan;
   fecha_inicio: string;
   fecha_fin: string;
   activa: boolean;
@@ -12,6 +13,7 @@ export interface Suscripcion {
     sitio_web: string;
   };
 }
+
 
 class ServicioSuscripciones {
   private urlBase =
