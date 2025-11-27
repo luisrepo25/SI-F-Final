@@ -271,9 +271,10 @@ export default function ListaSubsPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-1 text-sm">
+                  
                   <p>
                     <span className="font-medium">Precio:</span>{" "}
-                    {s.precio} Bs
+                    {s.plan.precio} Bs
                   </p>
                   <p>
                     <span className="font-medium">Inicio:</span>{" "}
