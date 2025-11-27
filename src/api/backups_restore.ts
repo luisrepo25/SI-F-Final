@@ -133,7 +133,7 @@ export const descargarBackup = async (filename: string) => {
     console.log('📥 API: Descargando backup desde Dropbox:', filename);
     
     // ✅ Usar endpoint de descarga de Dropbox
-    const url = buildUrl(`backups/dropbox/descargar/${filename}`);
+    const url = buildUrl(`/backups/dropbox/descargar/${filename}`);
     
     console.log('🔗 URL de descarga Dropbox:', url);
     
@@ -160,7 +160,7 @@ export const eliminarBackup = async (filename: string) => {
     
     // ⚠️ Nota: Esto elimina del backend LOCAL
     // Para eliminar de Dropbox necesitarías un endpoint adicional
-    const result = await tryPaths([`backups/delete/${filename}/`], 'DELETE');
+    const result = await tryPaths([`/backups/delete/${filename}/`], 'DELETE');
     console.log('✅ API: Backup eliminado desde:', result.url);
     return { data: result.data };
   } catch (error: any) {

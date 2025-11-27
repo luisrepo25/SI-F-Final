@@ -4,7 +4,7 @@ import axios from './axios';
 // Listar todos los servicios disponibles
 export const listarServicios = async () => {
   console.log('🔄 API: Solicitando lista de servicios...');
-  const response = await axios.get('servicios/');
+  const response = await axios.get('/servicios/');
   console.log('✅ API: Servicios obtenidos:', response.data);
   return response;
 };
@@ -12,7 +12,7 @@ export const listarServicios = async () => {
 // Listar todos los paquetes disponibles
 export const listarPaquetes = async () => {
   console.log('🔄 API: Solicitando lista de paquetes...');
-  const response = await axios.get('paquetes/');
+  const response = await axios.get('/paquetes/');
   console.log('✅ API: Paquetes obtenidos:', response.data);
   return response;
 };
@@ -20,7 +20,7 @@ export const listarPaquetes = async () => {
 // Obtener un servicio específico por ID
 export const obtenerServicio = async (id: string | number) => {
   console.log('🎯 API: Obteniendo servicio ID:', id);
-  const response = await axios.get(`servicios/${id}/`);
+  const response = await axios.get(`/servicios/${id}/`);
   console.log('✅ API: Servicio obtenido:', response.data);
   return response;
 };
@@ -28,7 +28,7 @@ export const obtenerServicio = async (id: string | number) => {
 // Obtener un paquete específico por ID
 export const obtenerPaquete = async (id: string | number) => {
   console.log('📦 API: Obteniendo paquete ID:', id);
-  const response = await axios.get(`paquetes/${id}/`);
+  const response = await axios.get(`/paquetes/${id}/`);
   console.log('✅ API: Paquete obtenido:', response.data);
   return response;
 };

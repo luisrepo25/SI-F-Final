@@ -97,7 +97,7 @@ function PagoExitosoContent() {
 
         // 1) Verificar pago (backend real)
         const res = await fetch(
-          `${API}verificar-pago/?session_id=${encodeURIComponent(sessionId)}`
+          `${API}/verificar-pago/?session_id=${encodeURIComponent(sessionId)}`
         );
         if (!res.ok)
           throw new Error(`Error verificando pago: HTTP ${res.status}`);
@@ -115,7 +115,7 @@ function PagoExitosoContent() {
         let encontrada = false;
         for (let i = 0; i < 12; i++) {
           const r = await fetch(
-            `${API}recomendacion/?session_id=${encodeURIComponent(sessionId)}`
+            `${API}/recomendacion/?session_id=${encodeURIComponent(sessionId)}`
           );
           if (r.ok) {
             const json = (await r.json()) as RecomCacheResp;

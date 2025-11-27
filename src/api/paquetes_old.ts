@@ -9,7 +9,7 @@ import axios from './axios';
 export const listarPaquetes = async () => {
   try {
     console.log('🔄 API: Solicitando lista de paquetes...');
-    const response = await axios.get('paquetes/');
+    const response = await axios.get('/paquetes/');
     console.log('✅ API: Paquetes obtenidos:', response.data);
     return response;
   } catch (error: any) {
@@ -23,7 +23,7 @@ export const listarPaquetes = async () => {
 export const listarServicios = async () => {
   try {
     console.log('🔄 API: Solicitando lista de servicios...');
-    const response = await axios.get('servicios/');
+    const response = await axios.get('/servicios/');
     console.log('✅ API: Servicios obtenidos:', response.data);
     return response;
   } catch (error: any) {
@@ -37,7 +37,7 @@ export const listarServicios = async () => {
 export const obtenerPaquete = async (id: string | number) => {
   try {
     console.log('📦 API: Obteniendo paquete ID:', id);
-    const response = await axios.get(`paquetes/${id}/`);
+    const response = await axios.get(`/paquetes/${id}/`);
     console.log('✅ API: Paquete obtenido:', response.data);
     return response;
   } catch (error: any) {
@@ -50,7 +50,7 @@ export const obtenerPaquete = async (id: string | number) => {
 export const obtenerServicio = async (id: string | number) => {
   try {
     console.log('🔧 API: Obteniendo servicio ID:', id);
-    const response = await axios.get(`servicios/${id}/`);
+    const response = await axios.get(`/servicios/${id}/`);
     console.log('✅ API: Servicio obtenido:', response.data);
     return response;
   } catch (error: any) {

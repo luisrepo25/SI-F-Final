@@ -30,7 +30,7 @@ async function fetchWithAuth(url: string, options: RequestInit = {}) {
 }
 
 async function tryPaths(paths: string[], method = 'GET', body?: any, extraHeaders: Record<string, string> = {}) {
-  const prefixes = ['', 'api/', 'campanias/', 'api/campanias/', 'condominio/campanias/', 'condominio/api/campanias/'];
+  const prefixes = ['', '/api/', '/campanias/', '/api/campanias/', '/condominio/campanias/', '/condominio/api/campanias/'];
   const errors: any[] = [];
 
   for (const prefix of prefixes) {

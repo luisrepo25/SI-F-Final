@@ -104,7 +104,7 @@ export const obtenerDestinosIndividuales = async (filtros?: {
  */
 export const obtenerDestinoIndividual = async (id: number): Promise<DestinoIndividual> => {
   console.log('🎯 API: Obteniendo destino ID:', id);
-  const response = await axios.get(`servicios/${id}/`);
+  const response = await axios.get(`/servicios/${id}/`);
   console.log('✅ API: Destino obtenido:', response.data.titulo);
   return response.data;
 }
@@ -204,7 +204,7 @@ export const obtenerPaquetesDisponibles = async (): Promise<ApiResponse<PaqueteT
  */
 export const obtenerPaqueteTuristico = async (id: number): Promise<PaqueteTuristico> => {
   console.log('📦 API: Obteniendo paquete turístico ID:', id);
-  const response = await axios.get(`paquetes/${id}/`);
+  const response = await axios.get(`/paquetes/${id}/`);
   console.log('✅ API: Paquete turístico obtenido:', response.data.descripcion);
   return response.data;
 }
@@ -214,7 +214,7 @@ export const obtenerPaqueteTuristico = async (id: number): Promise<PaqueteTurist
  */
 export const obtenerItinerarioPaquete = async (id: number) => {
   console.log('📅 API: Obteniendo itinerario del paquete ID:', id);
-  const response = await axios.get(`paquetes/${id}/itinerario/`);
+  const response = await axios.get(`/paquetes/${id}/itinerario/`);
   console.log('✅ API: Itinerario obtenido');
   return response.data;
 }
@@ -359,7 +359,7 @@ export const obtenerPaquetesConDescuentos = async (descuentoMinimo?: number) => 
  */
 export const obtenerCategorias = async () => {
   console.log('🏷️ API: Obteniendo categorías...');
-  const response = await axios.get('categorias/');
+  const response = await axios.get('/categorias/');
   console.log('✅ API: Categorías obtenidas:', response.data);
   return response.data;
 }
