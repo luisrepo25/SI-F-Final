@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Función helper para construir la URL base correctamente
 const getBaseURL = () => {
-  const apiUrlRaw =  "https://si-b-final-production.up.railway.app";
+  const apiUrlRaw =  'https://si-b-final-production.up.railway.app';
   // Remover slashes finales
   const apiUrl = apiUrlRaw.replace(/\/+$/, '');
   // Si la URL ya contiene '/api' al final, no agregamos otra vez
