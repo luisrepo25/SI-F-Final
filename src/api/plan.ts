@@ -4,7 +4,7 @@ export type Plan = {
   nombre: string;
   slug: string;
   descripcion?: string;
-  precio: string;
+  precio: number;
   duracion: 'mensual' | 'trimestral' | 'semestral' | 'anual';
   max_servicios: number;
   max_clientes_potenciales: number;

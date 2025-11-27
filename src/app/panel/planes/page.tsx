@@ -41,7 +41,7 @@ import { Pencil, Plus, CheckCircle, XCircle } from "lucide-react";
 const defaultForm: Partial<Plan> = {
   nombre: "",
   descripcion: "",
-  precio: "",
+  precio: 0,
   duracion: "mensual",
   max_servicios: 0,
   max_clientes_potenciales: 0,
@@ -64,7 +64,7 @@ const defaultForm: Partial<Plan> = {
 export default function PlanesPage() {
   const [planes, setPlanes] = useState<Plan[]>([]);
   const [loading, setLoading] = useState(false);
-  const [view, setView] = useState<'list' | 'form'>('list');
+  const [view, setView] = useState<"list" | "form">("list");
   const [editId, setEditId] = useState<number | null>(null);
   const [form, setForm] = useState<Partial<Plan>>(defaultForm);
 
@@ -91,11 +91,11 @@ export default function PlanesPage() {
       setEditId(null);
       setForm(defaultForm);
     }
-    setView('form');
+    setView("form");
   }
 
   function closeForm() {
-    setView('list');
+    setView("list");
     setEditId(null);
     setForm(defaultForm);
   }
@@ -143,10 +143,12 @@ export default function PlanesPage() {
 
   return (
     <div className="container mx-auto py-8 m-2">
-      {view === 'list' && (
+      {view === "list" && (
         <>
           <div className="flex justify-between items-center mb-8">
-            <h1 className="text-3xl font-bold text-blue-700">Gestión de Planes</h1>
+            <h1 className="text-3xl font-bold text-blue-700">
+              Gestión de Planes
+            </h1>
             <Button onClick={() => openForm()} className="flex gap-2">
               <Plus size={18} /> Nuevo plan
             </Button>
@@ -353,7 +355,7 @@ export default function PlanesPage() {
           </div>
         </>
       )}
-      {view === 'form' && (
+      {view === "form" && (
         <div className="w-full max-w-[100vw] h-[95vh] overflow-y-auto p-8 rounded-2xl bg-white shadow-xl border border-gray-100">
           <div className="border-b border-gray-100 pb-4 flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -690,8 +692,10 @@ export default function PlanesPage() {
                         </span>
                       </div>
                       <Switch
-                        checked={!!form[feature.key]}
-                        onCheckedChange={(v) => handleSwitch(feature.key, v)}
+                        checked={!!form[feature.key as keyof Plan]}
+                        onCheckedChange={(v) =>
+                          handleSwitch(feature.key as keyof Plan, v)
+                        }
                         className="data-[state=checked]:bg-blue-500"
                       />
                     </div>

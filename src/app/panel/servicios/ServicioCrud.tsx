@@ -76,13 +76,13 @@ const fetchProveedor = async (
 const cambiarEstadoServicio = async (id: number, nuevoEstado: string) => {
   const url = `api/servicios/${id}/`;
   return fetch(url, {
-    method: 'PATCH',
+    method: "PATCH",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      estado: nuevoEstado
-    })
+      estado: nuevoEstado,
+    }),
   });
 };
 
@@ -101,7 +101,7 @@ export default function ServicioCrud() {
     capacidad_max: 1,
     punto_encuentro: "",
     estado: "Activo",
-    proveedor: user?.id || 1,
+    proveedor: Number(user?.id) || 1,
     precio_usd: 0,
     servicios_incluidos: [],
     departamento: "",
@@ -113,21 +113,29 @@ export default function ServicioCrud() {
   const fetchServicios = async () => {
     setLoading(true);
     try {
-      const res = await listarServiciosPorId({ proveedor: user?.id || 1 });
+      const res = await listarServiciosPorId({
+        proveedor: Number(user?.id) || 1,
+      });
       console.log("🔍 Respuesta completa:", res);
 
-      // CORRECCIÓN: La API devuelve el array directamente, no en res.data
-      const serviciosRaw = Array.isArray(res) ? res : res.data || [];
+      // CORRECCIÓN: Verificar si res es directamente el array o viene en res.data
+      const serviciosRaw = Array.isArray(res)
+        ? res
+        : Array.isArray(res?.data)
+        ? res.data
+        : [];
       console.log("🔍 Servicios raw:", serviciosRaw);
 
       // Buscar proveedores si solo viene el id
-      const proveedoresIds = serviciosRaw
-        .map((s: Servicio) =>
-          typeof s.proveedor === "number" ? s.proveedor : null
+      const proveedoresIds = Array.from(
+        new Set(
+          serviciosRaw
+            .map((s: Servicio) =>
+              typeof s.proveedor === "number" ? s.proveedor : null
+            )
+            .filter((id): id is number => id !== null)
         )
-        .filter((id): id is number => id !== null)
-        .filter((id, idx, arr) => arr.indexOf(id) === idx);
-
+      );
       console.log("🔍 IDs de proveedores encontrados:", proveedoresIds);
 
       const proveedoresMap: Record<number, string> = { ...proveedoresCache };
@@ -197,7 +205,7 @@ export default function ServicioCrud() {
       capacidad_max: 1,
       punto_encuentro: "",
       estado: "Activo",
-      proveedor: user?.id || 1,
+      proveedor: Number(user?.id) || 1,
       precio_usd: 0,
       servicios_incluidos: [],
       departamento: "",
@@ -213,9 +221,9 @@ export default function ServicioCrud() {
 
   // Función para cambiar estado entre Activo/Inactivo
   const handleToggleEstado = async (servicio: Servicio) => {
-    const nuevoEstado = servicio.estado === 'Activo' ? 'Inactivo' : 'Activo';
-    const accion = nuevoEstado === 'Inactivo' ? 'desactivar' : 'activar';
-    
+    const nuevoEstado = servicio.estado === "Activo" ? "Inactivo" : "Activo";
+    const accion = nuevoEstado === "Inactivo" ? "desactivar" : "activar";
+
     if (!confirm(`¿Estás seguro de que quieres ${accion} este servicio?`))
       return;
 
@@ -497,7 +505,6 @@ export default function ServicioCrud() {
                         <Edit className="w-3 h-3 mr-1" />
                         Editar
                       </Button>
-                      
                     </div>
                   </div>
                 </CardContent>

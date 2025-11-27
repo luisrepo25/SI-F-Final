@@ -65,7 +65,7 @@ export default function PaqueteCrud() {
     descripcion: "",
     duracion: "",
     es_personalizado: false,
-    proveedor: user?.id || 1,
+    proveedor:  Number(user?.id) || 1,
     precio_base: 0,
     precio_bob: 0,
     cupos_disponibles: 20,
@@ -87,7 +87,7 @@ export default function PaqueteCrud() {
   const fetchPaquetes = async () => {
     setLoading(true);
     try {
-      const res = await listarPaquetesPorId({ proveedor: user?.id || 1 });
+      const res = await listarPaquetesPorId({ proveedor: Number(user?.id) || 1 });
       console.log("🔍 Respuesta completa paquetes:", res);
 
       const paquetesRaw = Array.isArray(res.data) ? res.data : [];
@@ -166,7 +166,7 @@ export default function PaqueteCrud() {
       descripcion: "",
       duracion: "",
       es_personalizado: false,
-      proveedor: user?.id || 1,
+      proveedor: Number(user?.id) || 1,
       precio_base: 0,
       precio_bob: 0,
       cupos_disponibles: 20,
