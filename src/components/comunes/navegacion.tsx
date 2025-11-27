@@ -41,6 +41,7 @@ export function Navegacion() {
             <LoadingLink href="/paquetes">Paquetes</LoadingLink>
             <LoadingLink href="/reserva-multiservicio">Reserva Multiservicio</LoadingLink>
             <LoadingLink href="/contacto">Contacto</LoadingLink>
+            <LoadingLink href="/politicas">Políticas</LoadingLink> 
             {/* Mostrar Panel Admin o Mi Panel según el rol */}
             {(() => {
               const { user } = auth;
@@ -109,6 +110,9 @@ export function Navegacion() {
               </LoadingLink>
               <LoadingLink href="/contacto" className="block px-3 py-2">
                 Contacto
+              </LoadingLink>
+              <LoadingLink href="/politicas" className="block px-3 py-2">
+                Políticas
               </LoadingLink>
               {/* Mostrar Panel Admin o Mi Panel según el rol */}
               {(() => {

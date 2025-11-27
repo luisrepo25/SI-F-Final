@@ -29,13 +29,16 @@ export function FiltrosBusqueda({
   alCerrar,
 }: PropsFiltrosBusqueda) {
   const categorias = [
-    { id: "cultural", etiqueta: "Cultural", cantidad: 24 },
-    { id: "naturaleza", etiqueta: "Naturaleza", cantidad: 18 },
-    { id: "aventura", etiqueta: "Aventura", cantidad: 15 },
-    { id: "gastronomia", etiqueta: "Gastronomía", cantidad: 12 },
-    { id: "historia", etiqueta: "Historia", cantidad: 20 },
-    { id: "religioso", etiqueta: "Religioso", cantidad: 8 },
-  ]
+  { id: "cultural", etiqueta: "Cultural", cantidad: 24 },
+  { id: "naturaleza", etiqueta: "Naturaleza", cantidad: 18 },
+  { id: "aventura", etiqueta: "Aventura", cantidad: 15 },
+  { id: "gastronomia", etiqueta: "Gastronomía", cantidad: 12 },
+  { id: "historia", etiqueta: "Historia", cantidad: 20 },
+  { id: "religioso", etiqueta: "Religioso", cantidad: 8 },
+
+  // ✅ NUEVA CATEGORÍA
+  { id: "ecologica", etiqueta: "Ecológica", cantidad: 10 },
+]
 
   const duraciones = [
     { id: "medio-dia", etiqueta: "Medio día" },
@@ -130,51 +133,6 @@ export function FiltrosBusqueda({
                   <span className="text-xs text-amber-600 bg-amber-100 px-2 py-1 rounded-full font-medium">
                     ({categoria.cantidad})
                   </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Calificación */}
-          <div className="space-y-4">
-            <Label className="font-semibold text-gray-800 text-base">Calificación mínima</Label>
-            <div className="px-3">
-              <Slider
-                value={[filtros.calificacion]}
-                onValueChange={manejarCambioCalificacion}
-                max={5}
-                min={1}
-                step={0.5}
-                className="w-full"
-              />
-              <div className="flex justify-between text-sm text-gray-600 mt-3">
-                <span>1★</span>
-                <span className="font-bold text-amber-600 bg-amber-100 px-3 py-1 rounded-full">
-                  {filtros.calificacion}★ o más
-                </span>
-                <span>5★</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Duración */}
-          <div className="space-y-4">
-            <Label className="font-semibold text-gray-800 text-base">Duración del tour</Label>
-            <div className="space-y-3">
-              {duraciones.map((duracion) => (
-                <div
-                  key={duracion.id}
-                  className="flex items-center space-x-3 p-2 rounded-lg hover:bg-blue-50 transition-colors"
-                >
-                  <Checkbox
-                    id={duracion.id}
-                    checked={filtros.duracion.includes(duracion.id)}
-                    onCheckedChange={(marcado) => manejarCambioDuracion(duracion.id, !!marcado)}
-                    className="data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500"
-                  />
-                  <Label htmlFor={duracion.id} className="flex-1 text-sm cursor-pointer font-medium text-gray-700">
-                    {duracion.etiqueta}
-                  </Label>
                 </div>
               ))}
             </div>
