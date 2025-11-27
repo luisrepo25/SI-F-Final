@@ -25,7 +25,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   try {
     console.log("🔍 Buscando destino con ID:", params.id);
     // Fetch de datos del destino con ISR (revalidación cada 60 segundos)
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL?.replace(/\/+$/, "");
+  const apiUrl = 'https://si-b-final-production.up.railway.app/api';
   const res = await fetch(`${apiUrl}/servicios/${params.id}`, {
       next: { revalidate: 60 },
       headers: {
