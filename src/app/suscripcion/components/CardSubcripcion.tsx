@@ -229,7 +229,7 @@ function SubscriptionCard({ datos }: { datos: Datos }) {
 
       console.log("📤 Enviando payload a suscripción:", payload);
 
-      const res = await fetch(`${backendUrl}/crear-checkout-session-suscripcion/`, {
+      const res = await fetch(`${backendUrl}crear-checkout-session-suscripcion/`, {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",

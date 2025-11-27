@@ -23,7 +23,7 @@ type ItemRecomendacion = {
 
 type RecomendacionEquipaje = {
   texto: string;
-  items: ItemRecomendacion[];
+  items?: ItemRecomendacion[]; // ✅ Hacerlo opcional
 };
 
 type RecomCacheResp = {
@@ -196,7 +196,7 @@ function PagoExitosoContent() {
               </div>
             )}
 
-            {/* Recomendación */}
+            {/* Recomendación - CORREGIDO */}
             {status === "paid" && (
               <div className="space-y-3">
                 <h2 className="text-lg font-semibold">
@@ -212,23 +212,37 @@ function PagoExitosoContent() {
                 {reco && (
                   <div className="space-y-3">
                     <p className="text-gray-700">{reco.texto}</p>
-                    <div className="grid gap-3 sm:grid-cols-2">
-                      {reco.items.map((cat, i) => (
-                        <div key={i} className="border rounded-md p-3">
-                          <div className="font-medium mb-1">
-                            {cat.categoria}{" "}
-                            <span className="text-xs px-2 py-0.5 rounded bg-gray-100 ml-1">
-                              {cat.prioridad}
-                            </span>
+                    
+                    {/* ✅ VALIDACIÓN SEGURA PARA EVITAR ERROR */}
+                    {reco.items && Array.isArray(reco.items) && reco.items.length > 0 ? (
+                      <div className="grid gap-3 sm:grid-cols-2">
+                        {reco.items.map((cat, i) => (
+                          <div key={i} className="border rounded-md p-3">
+                            <div className="font-medium mb-1">
+                              {cat.categoria}{" "}
+                              <span className="text-xs px-2 py-0.5 rounded bg-gray-100 ml-1">
+                                {cat.prioridad}
+                              </span>
+                            </div>
+                            
+                            {/* ✅ VALIDACIÓN SEGURA PARA ITEMS INTERNOS */}
+                            {cat.items && Array.isArray(cat.items) && cat.items.length > 0 ? (
+                              <ul className="text-sm list-disc pl-5 text-gray-700">
+                                {cat.items.map((it, j) => (
+                                  <li key={j}>{it}</li>
+                                ))}
+                              </ul>
+                            ) : (
+                              <p className="text-sm text-gray-500">No hay items específicos</p>
+                            )}
                           </div>
-                          <ul className="text-sm list-disc pl-5 text-gray-700">
-                            {cat.items.map((it, j) => (
-                              <li key={j}>{it}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-gray-600 text-sm">
+                        No hay recomendaciones de items disponibles
+                      </p>
+                    )}
                   </div>
                 )}
               </div>
