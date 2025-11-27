@@ -111,11 +111,11 @@ export default function ListaSubsPage() {
       }
 
       if (orden === "precio_mayor") {
-        return (b.precio || 0) - (a.precio || 0);
+        return (b.plan.precio || 0) - (a.plan.precio || 0);
       }
 
       if (orden === "precio_menor") {
-        return (a.precio || 0) - (b.precio || 0);
+        return (a.plan.precio || 0) - (b.plan.precio || 0);
       }
 
       return 0;
