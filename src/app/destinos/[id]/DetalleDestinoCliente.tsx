@@ -20,6 +20,8 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { toast } from "@/hooks/use-toast";
+import useAuth from "@/hooks/useAuth"; 
+import { registrarVisita } from "@/api/visita-reciente";
 
 import { Servicio } from "@/lib/servicios";
 import CartIcon from "@/components/ui/cart-icon";
@@ -27,9 +29,27 @@ import CartIcon from "@/components/ui/cart-icon";
 export default function DetalleDestinoCliente({ destino }: { destino: Servicio }) {
   const [esFavorito, setEsFavorito] = useState(false);
   const [titulo, setTitulo] = useState<string>("");
+  const { user } = useAuth(); 
 
   // Estado para saber si el destino ya fue agregado al carrito
   const [agregado, setAgregado] = useState(false);
+
+  useEffect(() => {
+    const registrar = async () => {
+      if (user && destino?.id) {
+        try {
+          console.log(`📍 Intentando registrar visita - Usuario: ${user.id}, Servicio ID: ${destino.id}`);
+          await registrarVisita(destino.id);
+          console.log(`✅ Visita registrada para el servicio ID: ${destino.id}`);
+        } catch (error) {
+          console.error("❌ Error al registrar la visita:", error);
+        }
+      } else {
+        console.log(`⚠️ No se puede registrar visita - Usuario existe: ${!!user}, Destino ID existe: ${!!destino?.id}`);
+      }
+    };
+    registrar();
+  }, [user, destino]);
 
   // Función para agregar destino al carrito de servicios múltiples
   const manejarAgregarItinerario = () => {

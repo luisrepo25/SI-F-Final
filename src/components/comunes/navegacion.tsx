@@ -41,7 +41,8 @@ export function Navegacion() {
             <LoadingLink href="/paquetes">Paquetes</LoadingLink>
             <LoadingLink href="/reserva-multiservicio">Reserva Multiservicio</LoadingLink>
             <LoadingLink href="/contacto">Contacto</LoadingLink>
-            <LoadingLink href="/politicas">Políticas</LoadingLink> 
+            <LoadingLink href="/politicas">Políticas</LoadingLink>
+            {auth.user && <LoadingLink href="/visita-reciente">Vistos Recientemente</LoadingLink>}
             {/* Mostrar Panel Admin o Mi Panel según el rol */}
             {(() => {
               const { user } = auth;
@@ -114,6 +115,11 @@ export function Navegacion() {
               <LoadingLink href="/politicas" className="block px-3 py-2">
                 Políticas
               </LoadingLink>
+              {auth.user && (
+                <LoadingLink href="/visita-reciente" className="block px-3 py-2">
+                  Vistos Recientemente
+                </LoadingLink>
+              )}
               {/* Mostrar Panel Admin o Mi Panel según el rol */}
               {(() => {
                 const { user } = auth;

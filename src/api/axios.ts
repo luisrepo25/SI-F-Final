@@ -2,7 +2,22 @@ import axios from "axios";
 
 // Función helper para construir la URL base correctamente
 const getBaseURL = () => {
-  const apiUrlRaw =  'https://si-b-final-production.up.railway.app';
+  // En producción, usar Railway; en desarrollo, usar localhost
+  let apiUrlRaw: string;
+  
+  if (typeof window !== "undefined") {
+    // Cliente-side: verificar si estamos en local o en Railway
+    const isDevelopment = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+    apiUrlRaw = isDevelopment 
+      ? 'http://localhost:8000' 
+      : 'https://si-b-final-production.up.railway.app';
+  } else {
+    // Server-side: usar variable de entorno o Railway por defecto
+    apiUrlRaw = process.env.NEXT_PUBLIC_API_URL || 'https://si-b-final-production.up.railway.app';
+  }
+  
+  console.log('🌐 AXIOS: URL Base utilizada:', apiUrlRaw);
+  
   // Remover slashes finales
   const apiUrl = apiUrlRaw.replace(/\/+$/, '');
   // Si la URL ya contiene '/api' al final, no agregamos otra vez
@@ -14,7 +29,8 @@ const getBaseURL = () => {
 
 const api = axios.create({
   baseURL: getBaseURL(),
-  timeout: 10000, // 10 segundos timeout
+  // Timeout más largo para desarrollo local, más corto para producción
+  timeout: typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") ? 30000 : 10000,
 });
 
 // Helper to set token programmatically
@@ -74,12 +90,17 @@ api.interceptors.response.use(
   },
   (error) => {
     const status = error?.response?.status;
+    const isTimeout = error.code === 'ECONNABORTED';
     
     // Log detallado de errores
     console.error('❌ AXIOS: Error en la petición');
     console.error('❌ AXIOS: Status:', status);
     console.error('❌ AXIOS: URL:', error.config?.url);
     console.error('❌ AXIOS: Método:', error.config?.method?.toUpperCase());
+    
+    if (isTimeout) {
+      console.error('⏱️ AXIOS: TIMEOUT - La solicitud tardó demasiado. Asegúrate de que el backend esté ejecutándose en', error.config?.baseURL);
+    }
     
     if (error.response?.data) {
       console.error('❌ AXIOS: Respuesta del backend:', JSON.stringify(error.response.data, null, 2));

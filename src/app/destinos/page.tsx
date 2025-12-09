@@ -73,6 +73,7 @@ export default function PaginaDestinos() {
         const queryDestino = params.get("destino");
 
         const { obtenerDestinosIndividuales } = await import("@/api/paquetes");
+        console.log("📡 Intentando obtener destinos del backend...");
         const response = await obtenerDestinosIndividuales({ estado: "Activo" });
 
         let resultados = response.results || serviciosFallback;
@@ -83,9 +84,16 @@ export default function PaginaDestinos() {
           );
         }
 
+        console.log("✅ Destinos cargados correctamente:", resultados.length);
         setServiciosOriginales(resultados.map((r: any) => adaptarServicio(r)));
-      } catch (error) {
+      } catch (error: any) {
         console.error("❌ Error cargando destinos:", error);
+        
+        // Si es un timeout o error de conexión, usar fallback pero mostrar un aviso
+        if (error.code === 'ECONNABORTED' || error.message?.includes('timeout')) {
+          console.warn("⏱️ Timeout al conectar con el backend. Usando datos locales...");
+        }
+        
         setServiciosOriginales(serviciosFallback);
       } finally {
         setCargando(false);

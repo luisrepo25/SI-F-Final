@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Navegacion } from "@/components/comunes/navegacion";
 import PaqueteCard from "@/components/PaqueteCard";
 import PaqueteDetalleVista from "@/components/PaqueteDetalleVista";
+import api from "@/api/axios";
 
 interface Paquete {
   id: number;
@@ -24,19 +25,30 @@ const PaquetesPage: React.FC = () => {
   const [paqueteSeleccionado, setPaqueteSeleccionado] = useState<Paquete | null>(null);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://si-b-final-production.up.railway.app/api'}/paquetes/`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Error al cargar paquetes");
-        return res.json();
-      })
-      .then((data) => {
-        setPaquetes(data);
+    const fetchPaquetes = async () => {
+      try {
+        console.log("📡 Intentando obtener paquetes del backend...");
+        const response = await api.get('paquetes/');
+        console.log('✅ Paquetes cargados:', response.data);
+        setPaquetes(response.data);
         setLoading(false);
-      })
-      .catch((err) => {
-        setError("No se pudieron cargar los paquetes");
+      } catch (err: any) {
+        console.error('❌ Error al cargar paquetes:', err);
+        
+        // Si es un timeout o error de conexión, mostrar mensaje útil
+        if (err.code === 'ECONNABORTED' || err.message?.includes('timeout')) {
+          console.warn("⏱️ Timeout al conectar con el backend. Por favor:");
+          console.warn("1. Asegúrate de que el backend Django está ejecutándose en http://localhost:8000");
+          console.warn("2. Recarga la página cuando el backend esté disponible");
+          setError("El servidor está tardando demasiado. Por favor, recarga la página.");
+        } else {
+          setError("No se pudieron cargar los paquetes");
+        }
         setLoading(false);
-      });
+      }
+    };
+    
+    fetchPaquetes();
   }, []);
 
   const handleVerDetalle = (id: number) => {
